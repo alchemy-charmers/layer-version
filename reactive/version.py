@@ -1,4 +1,4 @@
-from charms.reactive import when, when_not, set_state
+from charms.reactive import when_not, set_state, hook
 from charmhelpers.core.hookenv import application_version_set
 
 
@@ -9,7 +9,7 @@ def install_layer_version():
     set_state('layer-version.installed')
 
 
-@when('config.changed')
+@hook('upgrade-charm')
 def update_version():
     with open('VERSION', 'r') as version:
         application_version_set(version.readline().strip())
